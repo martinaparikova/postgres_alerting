@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 def send_slack_message(rule_id, rule_name, webhook_urls):
     for webhook_url in webhook_urls:
         data = {
@@ -9,5 +10,5 @@ def send_slack_message(rule_id, rule_name, webhook_urls):
                       "join alerts.results res on rul.id = res.rule_id where res.status = \'alerting\' "
                       "and rule_id = " + str(rule_id) + ' order by calculated_at desc`'
         }
-        response = requests.post(webhook_url, data=json.dumps(
+        requests.post(webhook_url, data=json.dumps(
             data), headers={'Content-Type': 'application/json'})
